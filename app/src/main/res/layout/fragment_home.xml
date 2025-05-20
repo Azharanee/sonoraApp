@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#FFFFFF"
     tools:context=".homeFragment">
 
     <LinearLayout
@@ -46,6 +47,7 @@
             android:layout_marginBottom="8dp"
             android:layout_marginStart="16dp"
             android:textSize="18sp"
+            android:textColor="#000"
             android:textStyle="bold" />
 
         <!-- Podcast and Lo-Fi Collections -->
@@ -127,6 +129,7 @@
             android:layout_marginBottom="8dp"
             android:text="Your audio"
             android:textSize="18sp"
+            android:textColor="#000"
             android:textStyle="bold" />
 
         <LinearLayout

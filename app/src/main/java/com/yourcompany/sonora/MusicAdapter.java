@@ -102,6 +102,7 @@ holder.itemView.setOnClickListener(new View.OnClickListener() {
     @Override
     public void onClick(View v) {
         Intent intent= new Intent(mContext, activity_play.class);
+        intent.putExtra("position",position);
         mContext.startActivity(intent);
     }
 });

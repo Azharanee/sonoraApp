@@ -12,12 +12,15 @@
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigationView"
         android:layout_width="match_parent"
+
         android:layout_height="wrap_content"
         android:background="#EA6600"
+
 
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+
         app:menu="@menu/activity_botton_main" />
 
     <FrameLayout

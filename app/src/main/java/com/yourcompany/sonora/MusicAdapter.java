@@ -43,6 +43,7 @@ this.mContext =mContext;
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
+
        holder .file_name.setText(mFiles.get(position).getTitle());
         byte[] image= null;
         try {
@@ -67,6 +68,7 @@ this.mContext =mContext;
         } else {
             holder.play_icon.setImageResource(R.drawable.ic_play);
         }
+//        Handle item click
         holder.play_icon.setOnClickListener(v -> {
             int pos = holder.getAdapterPosition();
             if (pos == RecyclerView.NO_POSITION) return;
@@ -97,14 +99,35 @@ this.mContext =mContext;
             } catch (IOException e) {
                 e.printStackTrace();
             }
+
         });
-holder.itemView.setOnClickListener(new View.OnClickListener() {
-    @Override
-    public void onClick(View v) {
-        Intent intent= new Intent(mContext, activity_play.class);
-        intent.putExtra("position",position);
+        if (mFiles.get(position).isFavorite()) {
+            holder.favorite_icon.setImageResource(R.drawable.red_heart); // Use your filled heart drawable
+        } else {
+            holder.favorite_icon.setImageResource(R.drawable.ic_favorite); // Use your empty heart drawable
+        }
+
+        holder.favorite_icon.setOnClickListener(view -> {
+            int pos = holder.getAdapterPosition();
+            if (pos == RecyclerView.NO_POSITION) return;
+            boolean newState = !mFiles.get(pos).isFavorite();
+            mFiles.get(pos).setFavorite(newState);
+            notifyItemChanged(pos);
+        });
+//holder.itemView.setOnClickListener(new View.OnClickListener() {
+//    @Override
+//    public void onClick(View v) {
+//        Intent intent= new Intent(mContext, activity_play.class);
+//        intent.putExtra("position",position);
+//        mContext.startActivity(intent);
+//    }
+    holder.itemView.setOnClickListener(v -> {
+        int pos = holder.getAdapterPosition();
+        if (pos == RecyclerView.NO_POSITION) return;
+        Intent intent = new Intent(mContext, activity_play.class);
+        intent.putExtra("position", pos);
         mContext.startActivity(intent);
-    }
+
 });
 //        holder.itemView.setOnClickListener(v -> {
 //            Intent intent = new Intent(mContext, activity_play.class);
@@ -122,11 +145,14 @@ holder.itemView.setOnClickListener(new View.OnClickListener() {
 TextView file_name;
 ImageView album_img;
 ImageView play_icon;
+ImageView favorite_icon;
+
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             file_name = itemView.findViewById(R.id.music_name);
             album_img =itemView.findViewById(R.id.music_img);
             play_icon = itemView.findViewById(R.id.play_icon);
+            favorite_icon = itemView.findViewById(R.id.favorite_icon);
         }
     }
     private byte [] getAlbumart (String uri) throws IOException {

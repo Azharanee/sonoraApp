@@ -7,6 +7,9 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -37,6 +40,9 @@ public class favoriteFragment extends Fragment {
      * @return A new instance of fragment favoriteFragment.
      */
     // TODO: Rename and change types and number of parameters
+    private RecyclerView recyclerView;
+    private MusicAdapter musicAdapter;
+    private ArrayList<MusicFiles> favoriteList = new ArrayList<>();
     public static favoriteFragment newInstance(String param1, String param2) {
         favoriteFragment fragment = new favoriteFragment();
         Bundle args = new Bundle();
@@ -55,10 +61,37 @@ public class favoriteFragment extends Fragment {
         }
     }
 
+
+//    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+//                             Bundle savedInstanceState) {
+//        // Inflate the layout for this fragment
+//        return inflater.inflate(R.layout.fragment_favorite, container, false);
+//    }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_favorite, container, false);
+        View view = inflater.inflate(R.layout.fragment_favorite, container, false);
+
+        recyclerView = view.findViewById(R.id.favorite_recycler_view);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        // Use the main music list from MainActivity
+        ArrayList<MusicFiles> allMusicFiles = MainActivity.musicFiles;
+
+        // Filter only favorites
+        favoriteList.clear();
+        if (allMusicFiles != null) {
+            for (MusicFiles music : allMusicFiles) {
+                if (music.isFavorite()) {
+                    favoriteList.add(music);
+                }
+            }
+        }
+
+        // Set up the adapter
+        musicAdapter = new MusicAdapter(getContext(), favoriteList);
+        recyclerView.setAdapter(musicAdapter);
+
+        return view;
     }
 }

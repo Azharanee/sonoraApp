@@ -1,4 +1,6 @@
 package com.yourcompany.sonora;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 
 import android.content.Context;
 import android.content.pm.PackageManager;
@@ -25,6 +27,7 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.core.content.ContextCompat;
 
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.yourcompany.sonora.databinding.ActivityMainBinding;
 
 
@@ -44,11 +47,8 @@ static ArrayList<MusicFiles> musicFiles;
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
-        // Set initial fragment to homeFragment
-        replaceFragment(new homeFragment());
-
-        // Set listener for bottom navigation
+///
+        ////
         binding.bottomNavigationView.setOnItemSelectedListener(item -> {
             int id = item.getItemId();
             if (id == R.id.home) {

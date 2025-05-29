@@ -7,7 +7,7 @@ public class MusicFiles {
     private String album;
     private String duration;
 
-
+    private boolean isFavorite = false;
     public MusicFiles(String album,String artist, String duration, String path, String title) {
         this.album = album;
         this.duration = duration;
@@ -56,6 +56,13 @@ public class MusicFiles {
 
     public void setArtist(String artist) {
         this.artist = artist;
+    }
+    public boolean isFavorite() {
+        return isFavorite;
+    }
+
+    public void setFavorite(boolean favorite) {
+        isFavorite = favorite;
     }
 
 }

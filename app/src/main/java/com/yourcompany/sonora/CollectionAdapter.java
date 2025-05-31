@@ -28,7 +28,8 @@ public class CollectionAdapter extends RecyclerView.Adapter<CollectionAdapter.Vi
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.activity_collection_detail, parent, false);
+        // Changed from activity_collection_detail to activity_item_collection
+        View view = LayoutInflater.from(context).inflate(R.layout.activity_item_collection, parent, false);
         return new ViewHolder(view);
     }
 

@@ -28,7 +28,6 @@ public class CollectionAdapter extends RecyclerView.Adapter<CollectionAdapter.Vi
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        // Changed from activity_collection_detail to activity_item_collection
         View view = LayoutInflater.from(context).inflate(R.layout.activity_item_collection, parent, false);
         return new ViewHolder(view);
     }
@@ -37,12 +36,20 @@ public class CollectionAdapter extends RecyclerView.Adapter<CollectionAdapter.Vi
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Collection collection = collections.get(position);
         holder.name.setText(collection.name);
+
+        // Set the appropriate image based on the collection type
         if ("lofi".equals(collection.imageType)) {
             holder.image.setImageResource(R.drawable.lofi_image);
         } else {
             holder.image.setImageResource(R.drawable.podcast_image);
         }
-        holder.itemView.setOnClickListener(v -> listener.onCollectionClick(collection));
+
+        // Set click listener for the entire item
+        holder.itemView.setOnClickListener(v -> {
+            if (listener != null) {
+                listener.onCollectionClick(collection);
+            }
+        });
     }
 
     @Override
@@ -53,6 +60,7 @@ public class CollectionAdapter extends RecyclerView.Adapter<CollectionAdapter.Vi
     public static class ViewHolder extends RecyclerView.ViewHolder {
         ImageView image;
         TextView name;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             image = itemView.findViewById(R.id.collection_image);
